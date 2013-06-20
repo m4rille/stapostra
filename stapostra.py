@@ -44,7 +44,8 @@ def get_next_url(html_root):
 
 def get_html(path):
     urlbase = "http://derstandard.at"
-    req = requests.get(urlbase + path)
+    user_agent = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20130406 Firefox/23.0'}
+    req = requests.get(urlbase + path, headers=user_agent)
     req.raise_for_status()
     text = req.text
     return html.document_fromstring(text)
@@ -84,4 +85,4 @@ if __name__ == '__main__':
     argparser.add_argument("-i", "--interval", type=int, help="Intervall zwischen Abfragen, in Sekunden", default=60)
     args = argparser.parse_args()
 
-    monitor_article(args.article_id, args.interval)    
+    monitor_article(args.article_id, args.interval)
