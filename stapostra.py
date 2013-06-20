@@ -8,6 +8,7 @@ from __future__ import print_function
 from lxml import html
 import time
 import argparse
+import sys
 
 import requests
 
@@ -42,10 +43,14 @@ def get_next_url(html_root):
     return None
 
 
-def get_html(path):
+def get_html(path, session=None):
     urlbase = "http://derstandard.at"
     user_agent = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20130406 Firefox/23.0'}
-    req = requests.get(urlbase + path, headers=user_agent)
+
+    if session is None:
+        session = requests.session()
+
+    req = session.get(urlbase + path, headers=user_agent)
     req.raise_for_status()
     text = req.text
     return html.document_fromstring(text)
@@ -55,8 +60,9 @@ def get_all_article_postings(article_id):
     url = "/" + article_id
 
     result = {}
+    session = requests.session()
     while url:
-        root = get_html(url)
+        root = get_html(url, session)
         result.update(get_postings(root))
         url = get_next_url(root)
 
@@ -67,15 +73,22 @@ def monitor_article(article_id, sleep_seconds):
     postings = {}
     deleted_postings = []
     while True:
-        new_postings = get_all_article_postings(article_id)
-        print("{} postings: {}".format(str(datetime.now()), len(new_postings)))
+        try:
+            new_postings = get_all_article_postings(article_id)
+            print("{} postings: {}".format(str(datetime.now()), len(new_postings)))
 
-        for key in postings.keys():
-            if not key in new_postings:
-                print("GELÖSCHT: {}", postings[key])
-                deleted_postings.append(postings[key])
+            for key in postings.keys():
+                if not key in new_postings:
+                    print("GELÖSCHT: {}", postings[key])
+                    deleted_postings.append(postings[key])
 
-        time.sleep(sleep_seconds)
+            time.sleep(sleep_seconds)
+        except KeyboardInterrupt:
+            print("---- Abbruch")
+            print("Gelöschte Postings seit Start:")
+            for p in deleted_postings:
+                print(p)
+            sys.exit()
 
 
 if __name__ == '__main__':
