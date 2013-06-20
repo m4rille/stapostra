@@ -7,6 +7,7 @@ derstandard.at gelöschte-postings-tracker
 from __future__ import print_function
 from lxml import html
 import time
+import argparse
 
 import requests
 
@@ -61,13 +62,9 @@ def get_all_article_postings(article_id):
     return result
 
 
-if __name__ == '__main__':
-    article_id = "1371170025277"
-    sleep_seconds = 60
-
+def monitor_article(article_id, sleep_seconds):
     postings = {}
     deleted_postings = []
-
     while True:
         new_postings = get_all_article_postings(article_id)
         print("{} postings: {}".format(str(datetime.now()), len(new_postings)))
@@ -78,3 +75,13 @@ if __name__ == '__main__':
                 deleted_postings.append(postings[key])
 
         time.sleep(sleep_seconds)
+
+
+if __name__ == '__main__':
+    argparser = argparse.ArgumentParser(
+        description='Derstandard.at Posting Tracker: überwacht Artikel und meldet gelöschte Postings.')
+    argparser.add_argument("article_id", help="Artikel-ID aus der URL, typischerweise im Format 123456677")
+    argparser.add_argument("-i", "--interval", type=int, help="Intervall zwischen Abfragen, in Sekunden", default=60)
+    args = argparser.parse_args()
+
+    monitor_article(args.article_id, args.interval)    
