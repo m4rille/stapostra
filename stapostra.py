@@ -83,7 +83,7 @@ def monitor_article(article_id, sleep_seconds, break_cond=lambda: True):
 
             for key in postings:
                 if not key in new_postings:
-                    print("GELÖSCHT: " + str_posting(postings[key]))
+                    print(u"GELÖSCHT: " + str_posting(postings[key]))
                     deleted_postings.append(postings[key])
 
             postings = new_postings
