@@ -69,6 +69,10 @@ def get_all_article_postings(article_id):
     return result
 
 
+def str_posting(posting):
+    return u"'{}' ({})".format(posting['text'], posting['name'])
+
+
 def monitor_article(article_id, sleep_seconds, break_cond=lambda: True):
     postings = {}
     deleted_postings = []
@@ -77,9 +81,9 @@ def monitor_article(article_id, sleep_seconds, break_cond=lambda: True):
             new_postings = get_all_article_postings(article_id)
             print("{} postings: {}".format(str(datetime.now()), len(new_postings)))
 
-            for key in postings.keys():
+            for key in postings:
                 if not key in new_postings:
-                    print("GELÖSCHT: {}", postings[key])
+                    print("GELÖSCHT: " + str_posting(postings[key]))
                     deleted_postings.append(postings[key])
 
             postings = new_postings
@@ -88,7 +92,7 @@ def monitor_article(article_id, sleep_seconds, break_cond=lambda: True):
             print("---- Abbruch")
             print("Gelöschte Postings seit Start:")
             for p in deleted_postings:
-                print(p)
+                print(str_posting(p))
             sys.exit()
 
 
