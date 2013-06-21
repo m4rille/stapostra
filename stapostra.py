@@ -69,10 +69,10 @@ def get_all_article_postings(article_id):
     return result
 
 
-def monitor_article(article_id, sleep_seconds):
+def monitor_article(article_id, sleep_seconds, break_cond=lambda: True):
     postings = {}
     deleted_postings = []
-    while True:
+    while break_cond():
         try:
             new_postings = get_all_article_postings(article_id)
             print("{} postings: {}".format(str(datetime.now()), len(new_postings)))
@@ -82,6 +82,7 @@ def monitor_article(article_id, sleep_seconds):
                     print("GELÖSCHT: {}", postings[key])
                     deleted_postings.append(postings[key])
 
+            postings = new_postings
             time.sleep(sleep_seconds)
         except KeyboardInterrupt:
             print("---- Abbruch")
