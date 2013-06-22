@@ -7,9 +7,11 @@ Dependencies
 ------------
 
 * Betriebssystem egal. Linux, Windows, Mac sollten gehen.
-* Python (getestet mit 2.7, wird wahrscheinlich auch mit 3.x gehen)
-* lxml
-* [Requests] (http://python-requests.org/)
+* Python (getestet mit 2.7 und 3.3)
+    * [lxml] (http://lxml.de)
+    * [Requests] (http://python-requests.org/)
+
+Tip für Windows-User: die beiden Python-Module kann man auch mit [inoffiziellen Installern](http://www.lfd.uci.edu/~gohlke/pythonlibs/) runterladen.
 
 Anwendung
 ---------
