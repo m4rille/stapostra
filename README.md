@@ -8,6 +8,7 @@ Dependencies
 
 * Betriebssystem egal. Linux, Windows, Mac sollten gehen.
 * Python (getestet mit 2.7, wird wahrscheinlich auch mit 3.x gehen)
+* lxml
 * [Requests] (http://python-requests.org/)
 
 Anwendung
