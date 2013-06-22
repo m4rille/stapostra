@@ -25,7 +25,7 @@ def get_postings(html_root):
         textdiv = p.xpath(".//div[@class='txt']")[0]
         text = textdiv.text_content()
 
-        result[pid] = {'name': uname, 'text': text}
+        result[pid] = {'name': uname, 'text': text, 'time': time.time()}
 
     return result
 
@@ -44,7 +44,7 @@ def get_next_url(html_root):
 
 def get_html(path, session=None):
     urlbase = "http://derstandard.at"
-    user_agent = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20130406 Firefox/23.0'}
+    user_agent = {'User-Agent': 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)'}
 
     if session is None:
         session = requests.session()
@@ -73,21 +73,31 @@ def str_posting(posting):
 
 
 def monitor_article(article_id, sleep_seconds, break_cond=lambda: True):
+    really_deleted_after_seconds = 7 * 60
+    repeat_rounds = 3
+
     postings = {}
     deleted_postings = []
     while break_cond():
         try:
-            new_postings = get_all_article_postings(article_id)
+            # postings mehrmals holen und übermenge bilden, um caching-effekte zu verringern
+            new_postings = {}
+            for _ in range(repeat_rounds):
+                new_postings.update(get_all_article_postings(article_id))
 
             if new_postings != postings:
                 print("{} postings: {}".format(str(datetime.now()), len(new_postings)))
 
             for key in postings:
                 if not key in new_postings:
-                    print(u"GELÖSCHT: " + str_posting(postings[key]))
-                    deleted_postings.append(postings[key])
+                    missing = postings[key]
 
-            postings = new_postings
+                    if (time.time() - missing['time']) > really_deleted_after_seconds:
+                        print(u"GELÖSCHT: " + str_posting(missing))
+                        deleted_postings.append(missing)
+
+            postings.update(new_postings)
+
             time.sleep(sleep_seconds)
         except KeyboardInterrupt:
             print("---- Abbruch")
@@ -101,7 +111,7 @@ if __name__ == '__main__':
     argparser = argparse.ArgumentParser(
         description='Derstandard.at Posting Tracker: überwacht Artikel und meldet gelöschte Postings.')
     argparser.add_argument("article_id", help="Artikel-ID aus der URL, typischerweise im Format 123456677")
-    argparser.add_argument("-i", "--interval", type=int, help="Intervall zwischen Abfragen, in Sekunden", default=120)
+    argparser.add_argument("-i", "--interval", type=int, help="Intervall zwischen Abfragen, in Sekunden", default=65)
     args = argparser.parse_args()
 
     monitor_article(args.article_id, args.interval)
