@@ -11,7 +11,7 @@ Dependencies
     * [lxml] (http://lxml.de)
     * [Requests] (http://python-requests.org/)
 
-Tip für Windows-User: die beiden Python-Module kann man auch mit [inoffiziellen Installern](http://www.lfd.uci.edu/~gohlke/pythonlibs/) runterladen.
+Tip für Windows-User: am einfachsten geht das ganze Setup mit [ActivePython](http://www.activestate.com/activepython).
 
 Anwendung
 ---------
