@@ -22,6 +22,11 @@ Auf der Kommandozeile mit der Artikel-ID (siehe URL im Browser) starten:
     
 Das Script holt sich dann periodisch alle Postings und meldet, falls welche wieder verschwinden.
 
+Warum?
+------
+
+Die Foren auf derstandard.at sind zwar nett, aber mitunter von unerklärlichen Löschaktionen betroffen: es verschwinden immer wieder Postings spurlos, ohne wirklich erkennbaren Grund (d.h. keine wüsten Beschimpfungen oder Illegales). Das passiert meistens bei den (wenigen) nicht von der APA übernommenen Artikeln. Ich wollte eine Möglichkeit, sowas zu bemerken - mein Eindruck ist, dass gekränkte Artikelautoren öfters auch harmloseste Kritik löschen. 
+
 Bekannte Einschränkungen
 ------------------------
 
