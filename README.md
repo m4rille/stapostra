@@ -26,5 +26,5 @@ Bekannte Einschränkungen
 ------------------------
 
 * Derzeit ist derstandard.at hartkodiert im Script
-* Bei standard.at wird offenbar serverseitiges Caching verwendet, wodurch man öfters einen alten Stand des Forums sieht. Das bedeutet, dass Postings scheinbar verschwinden, dann aber wieder auftauchen. Dieser Effekt wird derzeit nicht berücksichtigt.
+* Bei standard.at wird offenbar serverseitiges Caching verwendet, wodurch man öfters einen alten Stand des Forums sieht. Das bedeutet, dass Postings scheinbar verschwinden, dann aber wieder auftauchen. Das Script versucht diesen Effekt auszugleichen, es kann aber sein dass trotzdem Pseudo-Löschungen gemeldet werden.
 
