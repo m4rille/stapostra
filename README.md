@@ -27,4 +27,4 @@ Bekannte Einschränkungen
 
 * Derzeit ist derstandard.at hartkodiert im Script
 * Bei standard.at wird offenbar serverseitiges Caching verwendet, wodurch man öfters einen alten Stand des Forums sieht. Das bedeutet, dass Postings scheinbar verschwinden, dann aber wieder auftauchen. Das Script versucht diesen Effekt auszugleichen, es kann aber sein dass trotzdem Pseudo-Löschungen gemeldet werden.
-* Das Ding kann nicht zaubern: Postings die überhaupt nie veröffentlicht werden, kann es auch nicht bemerken. Es findet nur jene, die nach Veröffentlichtung wieder gelöscht werden.
+* Das Ding kann nicht zaubern: Postings die überhaupt nie veröffentlicht werden, kann es auch nicht bemerken. Es findet nur jene, die nach Veröffentlichtung wieder gelöscht werden. Das passiert offenbar immer manuell, entweder auf Zuruf durch den "Melden"-Knopf oder nach Lust und Laune eines Redakteurs(?). 
