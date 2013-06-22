@@ -11,7 +11,7 @@ Dependencies
     * [lxml] (http://lxml.de)
     * [Requests] (http://python-requests.org/)
 
-Tip für Windows-User: am einfachsten geht das ganze Setup mit [ActivePython](http://www.activestate.com/activepython).
+Tip für Windows-User: am einfachsten geht das ganze Setup mit [ActivePython](http://www.activestate.com/activepython) (32bit nehmen, die 64er-Version ist eingeschränkt) oder [WinPython](https://code.google.com/p/winpython/).
 
 Anwendung
 ---------
