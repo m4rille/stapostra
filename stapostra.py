@@ -5,14 +5,13 @@ derstandard.at gelöschte-postings-tracker
 """
 
 from __future__ import print_function
-from lxml import html
+from datetime import datetime
 import time
 import argparse
 import sys
 
+from lxml import html
 import requests
-
-from datetime import datetime
 
 
 def get_postings(html_root):
@@ -79,7 +78,9 @@ def monitor_article(article_id, sleep_seconds, break_cond=lambda: True):
     while break_cond():
         try:
             new_postings = get_all_article_postings(article_id)
-            print("{} postings: {}".format(str(datetime.now()), len(new_postings)))
+
+            if new_postings != postings:
+                print("{} postings: {}".format(str(datetime.now()), len(new_postings)))
 
             for key in postings:
                 if not key in new_postings:
@@ -100,7 +101,7 @@ if __name__ == '__main__':
     argparser = argparse.ArgumentParser(
         description='Derstandard.at Posting Tracker: überwacht Artikel und meldet gelöschte Postings.')
     argparser.add_argument("article_id", help="Artikel-ID aus der URL, typischerweise im Format 123456677")
-    argparser.add_argument("-i", "--interval", type=int, help="Intervall zwischen Abfragen, in Sekunden", default=60)
+    argparser.add_argument("-i", "--interval", type=int, help="Intervall zwischen Abfragen, in Sekunden", default=120)
     args = argparser.parse_args()
 
     monitor_article(args.article_id, args.interval)
