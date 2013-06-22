@@ -21,3 +21,10 @@ Auf der Kommandozeile mit der Artikel-ID (siehe URL im Browser) starten:
     python stapostra.py 1371169966891
     
 Das Script holt sich dann periodisch alle Postings und meldet, falls welche wieder verschwinden.
+
+Bekannte Einschränkungen
+------------------------
+
+* Derzeit ist derstandard.at hartkodiert im Script
+* Bei standard.at wird offenbar serverseitiges Caching verwendet, wodurch man öfters einen alten Stand des Forums sieht. Das bedeutet, dass Postings scheinbar verschwinden, dann aber wieder auftauchen. Dieser Effekt wird derzeit nicht berücksichtigt.
+
